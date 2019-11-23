@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bjsxt.mapper.Sys_TopicMapper">
+
+
+    <!--添加帖子-->
+    <insert id="insert">
+        insert into sys_topic values (#{topicid},#{title},#{content},#{author},#{createdate},#{clickamount})
+    </insert>
+
+    <!--查询全部帖子-->
+    <select id="queryAll" resultType="sys_Topic">
+        select * from Sys_Topic
+    </select>
+
+    <select id="selectByNoN" resultType="sys_Topic">
+        select  * from sys_Topic where topicid=#{0}
+    </select>
+
+
+    <!--查询帖子包括评论-->
+    <select id="selectAllN" resultMap="rm">
+        select * from sys_Topic
+    </select>
+    <resultMap id="rm" type="sys_Topic">
+        <id column="topicid" property="topicid"></id>
+        <result column="title" property="title"></result>
+        <result column="author" property="author"></result>
+        <result column="createdate" property="createdate"></result>
+        <result column="clickamount" property="clickamount"></result>
+
+        <!--多，由于查询的一个部门的员工有很多，所以使用的标签为collection-->
+        <collection  select="com.bjsxt.mapper.Sys_ReplyMapper.selectByNoN" property="sys_ReplyList"
+                     ofType="Sys_Reply" column="topicid"></collection>
+    </resultMap>
+
+
+    <!--2、-->
+    <select id="selectByNo" resultType="sys_Topic">
+        select  * from sys_Topic where topicid=#{0}
+    </select>
+
+    <update id="update" >
+        update sys_Topic set clickamount=clickamount+1 where topicid=#{0}
+
+    </update>
+
+
+</mapper>

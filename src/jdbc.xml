@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <properties resource="jdbc.properties"></properties>
+<!--记录日志-->
+    <settings>
+        <setting name="logImpl" value="LOG4J"/>
+    </settings>
+
+
+    <!--类型命名-->
+    <typeAliases>
+        <package name="com.bjsxt.cigar"></package>
+    </typeAliases>
+
+    <environments default="mysql">
+        <environment id="mysql">
+            <transactionManager type="JDBC"></transactionManager>
+            <dataSource type="POOLED">
+                <property name="driver" value="${mysqlDriver}"></property>
+                <property name="url" value="${mysqlURL}"></property>
+                <property name="username" value="${mysqlUserName}"></property>
+                <property name="password" value="${mysqlPassWord}"></property>
+            </dataSource>
+        </environment>
+
+        <!---配置oracle的连接环境 -->
+        <environment id="oracle">
+            <transactionManager type="JDBC"></transactionManager>
+            <dataSource type="POOLED">
+                <property name="driver" value="${oracleDriver}"></property>
+                <property name="url" value="${oracleURL}"></property>
+                <property name="username" value="${oracleUserName}"></property>
+                <property name="password" value="${oraclePassword}"></property>
+            </dataSource>
+        </environment>
+
+        
+    
+        
+
+
+
+
+
+
+
+    </environments>
+    <mappers>
+       <!-- <mapper resource="com/bjsxt/mapper/DeptMapper.xml"></mapper>
+        <mapper resource="com/bjsxt/mapper/EmpMapper.xml"></mapper>-->
+        <package name="com.bjsxt.mapper"></package>
+    </mappers>
+</configuration>
